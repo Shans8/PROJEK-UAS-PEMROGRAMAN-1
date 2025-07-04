@@ -1,0 +1,383 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.8
+-- Dumped by pg_dump version 16.8
+
+-- Started on 2025-07-04 23:18:27
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 4874 (class 1262 OID 24712)
+-- Name: toko_sepatu; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE toko_sepatu WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en-US';
+
+
+ALTER DATABASE toko_sepatu OWNER TO postgres;
+
+\connect toko_sepatu
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 218 (class 1259 OID 24721)
+-- Name: pegawai; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.pegawai (
+    id_pegawai integer NOT NULL,
+    nama_pegawai character varying(100) NOT NULL,
+    no_pegawai character varying(50) NOT NULL,
+    jenis_kelamin character varying(20) NOT NULL,
+    alamat character varying(50) NOT NULL,
+    no_hp character varying(20) NOT NULL,
+    email character varying(50) NOT NULL,
+    jabatan character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.pegawai OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 24720)
+-- Name: pegawai_id_pegawai_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.pegawai_id_pegawai_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.pegawai_id_pegawai_seq OWNER TO postgres;
+
+--
+-- TOC entry 4875 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: pegawai_id_pegawai_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.pegawai_id_pegawai_seq OWNED BY public.pegawai.id_pegawai;
+
+
+--
+-- TOC entry 220 (class 1259 OID 24728)
+-- Name: pesanan; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.pesanan (
+    id_pesanan integer NOT NULL,
+    id_produk integer NOT NULL,
+    nama_produk character varying(100) NOT NULL,
+    jumlah integer NOT NULL,
+    total_harga numeric(15,2),
+    tanggal_pesanan date DEFAULT CURRENT_DATE NOT NULL
+);
+
+
+ALTER TABLE public.pesanan OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 24727)
+-- Name: pesanan_id_pesanan_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.pesanan_id_pesanan_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.pesanan_id_pesanan_seq OWNER TO postgres;
+
+--
+-- TOC entry 4876 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: pesanan_id_pesanan_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.pesanan_id_pesanan_seq OWNED BY public.pesanan.id_pesanan;
+
+
+--
+-- TOC entry 216 (class 1259 OID 24714)
+-- Name: produk; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.produk (
+    id_produk integer NOT NULL,
+    nama_produk character varying(100) NOT NULL,
+    merek character varying(50),
+    ukuran integer NOT NULL,
+    harga numeric(10,2) NOT NULL,
+    stok integer NOT NULL
+);
+
+
+ALTER TABLE public.produk OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 24713)
+-- Name: produk_id_produk_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.produk_id_produk_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.produk_id_produk_seq OWNER TO postgres;
+
+--
+-- TOC entry 4877 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: produk_id_produk_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.produk_id_produk_seq OWNED BY public.produk.id_produk;
+
+
+--
+-- TOC entry 222 (class 1259 OID 24741)
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    id_user integer NOT NULL,
+    username character varying(100) NOT NULL,
+    password character varying(100) NOT NULL,
+    akses character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 24740)
+-- Name: users_id_user_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.users_id_user_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.users_id_user_seq OWNER TO postgres;
+
+--
+-- TOC entry 4878 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: users_id_user_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.users_id_user_seq OWNED BY public.users.id_user;
+
+
+--
+-- TOC entry 4704 (class 2604 OID 24724)
+-- Name: pegawai id_pegawai; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pegawai ALTER COLUMN id_pegawai SET DEFAULT nextval('public.pegawai_id_pegawai_seq'::regclass);
+
+
+--
+-- TOC entry 4705 (class 2604 OID 24731)
+-- Name: pesanan id_pesanan; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pesanan ALTER COLUMN id_pesanan SET DEFAULT nextval('public.pesanan_id_pesanan_seq'::regclass);
+
+
+--
+-- TOC entry 4703 (class 2604 OID 24717)
+-- Name: produk id_produk; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.produk ALTER COLUMN id_produk SET DEFAULT nextval('public.produk_id_produk_seq'::regclass);
+
+
+--
+-- TOC entry 4707 (class 2604 OID 24744)
+-- Name: users id_user; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id_user SET DEFAULT nextval('public.users_id_user_seq'::regclass);
+
+
+--
+-- TOC entry 4864 (class 0 OID 24721)
+-- Dependencies: 218
+-- Data for Name: pegawai; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.pegawai (id_pegawai, nama_pegawai, no_pegawai, jenis_kelamin, alamat, no_hp, email, jabatan) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4866 (class 0 OID 24728)
+-- Dependencies: 220
+-- Data for Name: pesanan; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.pesanan (id_pesanan, id_produk, nama_produk, jumlah, total_harga, tanggal_pesanan) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4862 (class 0 OID 24714)
+-- Dependencies: 216
+-- Data for Name: produk; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.produk (id_produk, nama_produk, merek, ukuran, harga, stok) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4868 (class 0 OID 24741)
+-- Dependencies: 222
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (id_user, username, password, akses) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4879 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: pegawai_id_pegawai_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.pegawai_id_pegawai_seq', 1, false);
+
+
+--
+-- TOC entry 4880 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: pesanan_id_pesanan_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.pesanan_id_pesanan_seq', 1, false);
+
+
+--
+-- TOC entry 4881 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: produk_id_produk_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.produk_id_produk_seq', 1, false);
+
+
+--
+-- TOC entry 4882 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: users_id_user_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.users_id_user_seq', 1, false);
+
+
+--
+-- TOC entry 4711 (class 2606 OID 24726)
+-- Name: pegawai pegawai_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pegawai
+    ADD CONSTRAINT pegawai_pkey PRIMARY KEY (id_pegawai);
+
+
+--
+-- TOC entry 4713 (class 2606 OID 24734)
+-- Name: pesanan pesanan_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pesanan
+    ADD CONSTRAINT pesanan_pkey PRIMARY KEY (id_pesanan);
+
+
+--
+-- TOC entry 4709 (class 2606 OID 24719)
+-- Name: produk produk_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.produk
+    ADD CONSTRAINT produk_pkey PRIMARY KEY (id_produk);
+
+
+--
+-- TOC entry 4715 (class 2606 OID 24746)
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id_user);
+
+
+--
+-- TOC entry 4716 (class 2606 OID 24735)
+-- Name: pesanan pesanan_id_produk_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pesanan
+    ADD CONSTRAINT pesanan_id_produk_fkey FOREIGN KEY (id_produk) REFERENCES public.produk(id_produk);
+
+
+--
+-- TOC entry 4717 (class 2606 OID 24868)
+-- Name: pesanan pesanan_id_produk_fkey1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pesanan
+    ADD CONSTRAINT pesanan_id_produk_fkey1 FOREIGN KEY (id_produk) REFERENCES public.produk(id_produk);
+
+
+-- Completed on 2025-07-04 23:18:27
+
+--
+-- PostgreSQL database dump complete
+--
+
